@@ -1,0 +1,85 @@
+// بيانات الترجمة
+const translations = {
+    ar: {
+        welcome: "مرحباً بك",
+        welcomeSub: "في تطبيق Electro للتحكم بجهاز TENS",
+        guestLogin: "الدخول كضيف",
+        connect: "الاتصال",
+        session: "الجلسة",
+        history: "السجل",
+        info: "المعلومات",
+        deviceName: "TENS Watch",
+        deviceStatus: "جهاز غير متصل",
+        connectBtn: "اتصال",
+        sessionHistory: "سجل الجلسات",
+        usageTips: "نصائح الاستخدام",
+        tip1: "استخدم الجهاز بحذر واتبع تعليمات الطبيب.",
+        settings: "إعدادات الجلسة"
+    },
+    en: {
+        welcome: "Welcome",
+        welcomeSub: "To Electro TENS Control App",
+        guestLogin: "Login as Guest",
+        connect: "Connect",
+        session: "Session",
+        history: "History",
+        info: "Information",
+        deviceName: "TENS Watch",
+        deviceStatus: "Device Disconnected",
+        connectBtn: "Connect",
+        sessionHistory: "Session History",
+        usageTips: "Usage Tips",
+        tip1: "Use the device carefully and follow doctor's instructions.",
+        settings: "Session Settings"
+    }
+};
+
+// اللغة الافتراضية
+let currentLang = 'ar';
+
+// تبديل اللغة
+function toggleLanguage(lang = null) {
+    currentLang = lang || (currentLang === 'ar' ? 'en' : 'ar');
+    document.getElementById('htmlTag').dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    document.getElementById('currentLanguage').textContent = currentLang === 'ar' ? 'العربية' : 'English';
+    translatePage();
+}
+
+// تطبيق الترجمة
+function translatePage() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        el.textContent = translations[currentLang][key] || key;
+    });
+}
+
+// عرض الشاشات
+function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.add('hidden');
+    });
+    document.getElementById(screenId).classList.remove('hidden');
+}
+
+function showMainScreen() {
+    showScreen('mainScreen');
+}
+
+// اتصال الجهاز (وهمي)
+function connectDevice() {
+    const statusEl = document.querySelector('.device-card p');
+    const btnEl = document.querySelector('.connect-btn');
+    
+    statusEl.textContent = currentLang === 'ar' ? 'جاري الاتصال...' : 'Connecting...';
+    
+    setTimeout(() => {
+        statusEl.textContent = currentLang === 'ar' ? 'جهاز متصل' : 'Device Connected';
+        btnEl.textContent = currentLang === 'ar' ? 'قطع الاتصال' : 'Disconnect';
+        btnEl.style.backgroundColor = 'var(--success-color)';
+    }, 1500);
+}
+
+// تهيئة الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    translatePage();
+});
