@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlTag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electro - TENS Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- شاشة الدخول -->
+        <div class="screen" id="loginScreen">
+            <div class="language-toggle">
+                <button onclick="toggleLanguage('en')">English</button>
+                <button onclick="toggleLanguage('ar')">العربية</button>
+            </div>
+            <div class="login-box">
+                <h1 data-i18n="welcome">مرحباً بك</h1>
+                <p data-i18n="welcomeSub">في تطبيق Electro للتحكم بجهاز TENS</p>
+                <button onclick="showMainScreen()" data-i18n="guestLogin">الدخول كضيف</button>
+            </div>
+        </div>
+
+        <!-- الواجهة الرئيسية -->
+        <div class="screen hidden" id="mainScreen">
+            <header>
+                <h1>Electro <i class="fas fa-bolt"></i></h1>
+                <div class="header-actions">
+                    <button class="language-btn" onclick="toggleLanguage()">
+                        <i class="fas fa-language"></i>
+                        <span id="currentLanguage">العربية</span>
+                    </button>
+                    <button class="icon-btn" onclick="showScreen('settingsScreen')"><i class="fas fa-cog"></i></button>
+                </div>
+            </header>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('connectTab')" data-i18n="connect">الاتصال</button>
+                <button class="tab-btn" onclick="showTab('sessionTab')" data-i18n="session">الجلسة</button>
+                <button class="tab-btn" onclick="showTab('historyTab')" data-i18n="history">السجل</button>
+                <button class="tab-btn" onclick="showTab('infoTab')" data-i18n="info">المعلومات</button>
+            </div>
+
+            <div class="tab-content" id="connectTab">
+                <div class="device-card">
+                    <i class="fas fa-bluetooth-b"></i>
+                    <h3 data-i18n="deviceName">TENS Watch</h3>
+                    <p data-i18n="deviceStatus">جهاز غير متصل</p>
+                    <button class="connect-btn" onclick="connectDevice()" data-i18n="connectBtn">اتصال</button>
+                </div>
+            </div>
+
+            <div class="tab-content hidden" id="sessionTab">
+                <!-- محتوى الجلسة -->
+            </div>
+
+            <div class="tab-content hidden" id="historyTab">
+                <h2 data-i18n="sessionHistory">سجل الجلسات</h2>
+                <div class="history-list" id="historyList"></div>
+            </div>
+
+            <div class="tab-content hidden" id="infoTab">
+                <h2 data-i18n="usageTips">نصائح الاستخدام</h2>
+                <div class="info-card">
+                    <i class="fas fa-info-circle"></i>
+                    <p data-i18n="tip1">استخدم الجهاز بحذر واتبع تعليمات الطبيب.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- شاشة الإعدادات -->
+        <div class="screen hidden" id="settingsScreen">
+            <header>
+                <button class="back-btn" onclick="showScreen('mainScreen')"><i class="fas fa-arrow-left"></i></button>
+                <h1 data-i18n="settings">إعدادات الجلسة</h1>
+            </header>
+            <!-- محتوى الإعدادات -->
+        </div>
+    </div>
+</body>
+</html>
